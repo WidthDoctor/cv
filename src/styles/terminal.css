@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
+/* Основной стиль для текста */
+span{
+  letter-spacing: 2px;
+}
+.hex{
+  cursor: default;
+  width: 80px; /* Фиксированная ширина для выравнивания */
+  text-align: left;
+  white-space: nowrap; /* Для предотвращения переноса текста */
+}
+.line{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.symbol:hover{
+  cursor: pointer;
+  background-color: hsl(120, 40%, 54%);
+}
+.Kombo:hover{
+  cursor: pointer;
+  background-color: hsl(120, 40%, 54%);
+}
+.word:hover{
+  cursor: pointer;
+  background-color: hsl(120, 40%, 54%);
+}
+.container{
+  display: flex;
+  width: 200px;
+  justify-content: space-evenly;
+}
+span {
+  font-size: 25px;
+  color: hsl(120, 100%, 75%);
+  font-family: "Share Tech", sans-serif;
+  font-weight: 500;
+  text-shadow: 1px 1px rgb(58, 66, 56);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Основной фон страницы */
+body {
+  background-image: url(../images/screenbg.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-x;
+  margin: 0; /* Убираем отступы */
+  padding: 0; /* Убираем отступы */
+}
+
+/* Контейнер для фона и текста */
+.terminal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100vw; /* Полная ширина экрана */
+  height: 100vh; /* Полная высота экрана */
+  overflow: hidden; /* Чтобы скрыть лишние части */
+}
+
+/* Контейнер для текста */
+.textContainer {
+  position: absolute;
+  top: 50%; /* Центрируем по вертикали */
+  left: 50%; /* Центрируем по горизонтали */
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%); /* Для точного центрирования */
+  max-width: 1400px; /* Минимальная ширина */
+  max-height: 800px; /* Минимальная высота */
+  z-index: 2; /* Располагаем поверх изображения */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; /* Учитываем отступы и рамку в размерах */
+}
+.terminal-lines{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  width: 800px;
+}
+
+
+@media (max-width: 768px) {
+  .textContainer {
+    width: 430px;
+    height: 900px;
+    top: 50%;
+    left: 50%;
+  }
+  .terminal-background{
+    width: 100vw;
+    height: 100vh;
+  }
+
+}

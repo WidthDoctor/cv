@@ -1,0 +1,19 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+}
+.App {
+    /* margin: 90px 0px 90px 0px; */
+}
+.terminal-background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image: url(../images/screenbg.png); */
+    background-repeat: no-repeat;
+    background-position: center; /* Размер изображения из переменной */
+    transition: background-size 0.3s ease-in-out; /* Плавное изменение размера */
+}
