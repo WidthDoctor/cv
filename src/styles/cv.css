@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech&display=swap");
+import
+span,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 25px;
+  color: hsl(120, 100%, 75%);
+  font-family: "Share Tech", sans-serif;
+  font-weight: 500;
+  text-shadow: 1px 1px rgb(58, 66, 56);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-const Game = () => {
+const Game = ({onVictory}) => {
   const [randomWord, setRandomWord] = useState(""); // Загаданное слово
   const [words, setWords] = useState([]); // Список слов
   const [tries, setTries] = useState(5); // Количество оставшихся попыток
   const [triesText, setTriesText] = useState("█████"); // Текст для .triesLeft
+  const [hoveredText, setHoveredText] = useState("");
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     // Функция для нахождения всех слов и выбора случайного
     const findWords = () => {
-      const wordElements = Array.from(document.querySelectorAll('.word'));
+      const wordElements = Array.from(document.querySelectorAll(".word"));
       const wordText = wordElements.map((el) => el.textContent.trim());
       setWords(wordText);
 
@@ -31,7 +33,37 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    // Обработчик кликов
+    const handleMouseOver = (event) => {
+      const target = event.target;
+
+      if (
+        target.classList.contains("word") ||
+        target.classList.contains("Kombo") ||
+        target.classList.contains("symbol")
+      ) {
+        setHoveredText(target.textContent.trim());
+      }
+    };
+
+    const handleMouseOut = () => {
+      setHoveredText(""); // Сбрасываем текст при уходе курсора
+    };
+
+    const container = document.querySelector(".terminal-background");
+    if (container) {
+      container.addEventListener("mouseover", handleMouseOver);
+      container.addEventListener("mouseout", handleMouseOut);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("mouseover", handleMouseOver);
+        container.removeEventListener("mouseout", handleMouseOut);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const handleClick = (event) => {
       const target = event.target;
 
@@ -40,7 +72,7 @@ const Game = () => {
         target.style.pointerEvents = "none"; // Делаем комбо некликабельным
 
         // Заменяем случайное слово на точки
-        const wordElements = Array.from(document.querySelectorAll('.word'));
+        const wordElements = Array.from(document.querySelectorAll(".word"));
         const validWords = wordElements.filter(
           (el) => el.textContent.trim() !== randomWord
         );
@@ -77,6 +109,16 @@ const Game = () => {
           console.log(
             `Неверное слово: ${clickedWord}. Совпадающих букв: ${matchingLetters}`
           );
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            `>${clickedWord}`,
+            ">Entry denied",
+            `>Likeness = ${matchingLetters}`,
+          ]);
+        }
+        if (clickedWord === randomWord) {
+          console.log('pobeda');
+          onVictory();
         }
       }
     };
@@ -102,7 +144,14 @@ const Game = () => {
     }
   }, [triesText]);
 
-  return null; // Ничего не рендерим
+  return (
+    <div className="hover-display">
+      {messages.map((message, index) => (
+        <span key={index}>{message}</span>
+      ))}
+      <span>{hoveredText ? `>${hoveredText}` : ">" + "█"}</span>
+    </div>
+  );
 };
 
 export default Game;

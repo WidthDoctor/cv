@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/terminal.css";
 import TerminalLines from "./TerminalLines";
 import Game from "./game";
+import CV from "./cvBox/menu";
 // Импортируем Game компонент
 
 const Terminal = () => {
@@ -9,6 +10,7 @@ const Terminal = () => {
   const [text2, setText2] = useState(""); // Для второго спана
   const [text3, setText3] = useState(""); // Для третьего спана
   const [showTerminal, setShowTerminal] = useState(false); // Управляем состоянием отображения игры
+  const [isVictory, setIsVictory] = useState(false);
 
   useEffect(() => {
     const asciiSymbol = "█";
@@ -48,16 +50,20 @@ const Terminal = () => {
   return (
     <div className="terminal-background">
       <div className="textContainer">
-        <span className="greet">{text1}</span>
-        <span className="greet">{text2}</span>
-        <span className="triesLeft">{text3}</span>
-
-        {showTerminal && (
+        {!isVictory && (
           <>
-            <TerminalLines />
-            <Game />
+            <span className="greet">{text1}</span>
+            <span className="greet">{text2}</span>
+            <span className="triesLeft">{text3}</span>
           </>
         )}
+        {showTerminal && !isVictory && (
+          <>
+            <TerminalLines />
+            <Game onVictory={() => setIsVictory(true)} />
+          </>
+        )}
+        {isVictory && <CV />}
       </div>
     </div>
   );

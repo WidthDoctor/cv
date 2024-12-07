@@ -42,7 +42,17 @@ span {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.hover-display{
+  width: 200px;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  position: absolute;
+  right: 20px;
+  bottom: 135px;
+}
 /* Основной фон страницы */
 body {
   background-image: url(../images/screenbg.png);
