@@ -1,0 +1,47 @@
+/* Mobile Styles */
+
+/* Extra Small Devices, Phones (less than 600px) */
+@media only screen and (max-width: 599px) {
+    span{
+        font-size: 10px;
+    }
+    .hover-display{
+        right: 5%;
+        bottom: 0;
+        height: 115px;
+       }/* Add your styles for extra small devices here */
+}
+
+/* Small Devices, Phones (600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    span{
+        font-size: 15px;
+        letter-spacing: normal;
+    }
+    .hover-display{
+        right: 5%;
+        bottom: 0;
+        height: 115px;
+       } /* Add your styles for small devices here */
+}
+
+/* Medium Devices, Tablets (768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .terminal-lines{
+        min-width: 700px;
+    }
+    .hover-display{
+        right: 5%;
+        bottom: 0;
+        height: 115px;
+       }
+}
+
+/* Large Devices, Desktops (992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1259px) {
+   .hover-display{
+    right: 10%;
+    bottom: 0;
+    height: 115px;
+   }
+}

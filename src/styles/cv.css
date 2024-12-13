@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Share+Tech&display=swap");
-import
-span,
+import span,
 div,
 p,
 h1,
@@ -16,4 +15,24 @@ h6 {
   text-shadow: 1px 1px rgb(58, 66, 56);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cv-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
+.menu-container>span{
+  margin-top: 20px;
+}
+.menu-container>span:hover{
+  cursor: pointer;
+  background-color: hsl(120, 40%, 54%);
+}
+.greet{
+  margin-top: 40px;
 }

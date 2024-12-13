@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/terminal.css";
+import "../styles/mobile.css";
 
 // Функция для генерации случайного шестнадцатеричного значения
 const generateHex = () => {
@@ -19,7 +20,8 @@ const generateCombo = () => {
 
   // Генерируем контент внутри скобок. Он может быть пустым, содержать символы или еще одну пару скобок
   let comboContent = generateRandomSymbol(); // Обязательно хотя бы один символ
-  if (Math.random() < 0.5) { // 50% шанс добавить дополнительные символы или скобки
+  if (Math.random() < 0.5) {
+    // 50% шанс добавить дополнительные символы или скобки
     const additionalContent = generateRandomSymbol() + generateRandomSymbol();
     comboContent += additionalContent; // Добавляем еще 2 символа
   }
@@ -29,8 +31,22 @@ const generateCombo = () => {
 
 const TerminalLines = () => {
   const vocabulary = [
-    "RETINA", "RETAIN", "RATINE", "EOLIAN", "TONIER", "ORNATE", "ORIENT", "NORITE",
-    "ATONER", "AUNTIE", "RATION", "ARIOSE", "TRIODE", "DOTIER", "EDITOR", "IRONES"
+    "RETINA",
+    "RETAIN",
+    "RATINE",
+    "EOLIAN",
+    "TONIER",
+    "ORNATE",
+    "ORIENT",
+    "NORITE",
+    "ATONER",
+    "AUNTIE",
+    "RATION",
+    "ARIOSE",
+    "TRIODE",
+    "DOTIER",
+    "EDITOR",
+    "IRONES",
   ];
 
   const [lines, setLines] = useState([]);
@@ -115,7 +131,7 @@ const TerminalLines = () => {
     // Функция для подсчета длины строки
     const getLengthOfString = (elements) => {
       let length = 0;
-      elements.forEach(el => {
+      elements.forEach((el) => {
         if (el.props.children && el.props.children.length) {
           length += el.props.children.length; // Если это слово, то учитываем длину каждого символа
         } else if (el.props.className === "Kombo") {
@@ -134,7 +150,11 @@ const TerminalLines = () => {
       const isComboLine = comboLines.includes(lineIndex);
 
       // Генерация элементов до второго HEX
-      let elementsBeforeWord = generateRandomElements(12, isComboLine, isWordLine);
+      let elementsBeforeWord = generateRandomElements(
+        12,
+        isComboLine,
+        isWordLine
+      );
 
       // Проверка, чтобы общая длина не превышала 12
       let totalLengthBeforeWord = getLengthOfString(elementsBeforeWord);
@@ -144,7 +164,11 @@ const TerminalLines = () => {
       }
 
       // Добавляем второй блок после второго HEX
-      let elementsAfterSecondHex = generateRandomElements(12, isComboLine, isWordLine);
+      let elementsAfterSecondHex = generateRandomElements(
+        12,
+        isComboLine,
+        isWordLine
+      );
       let totalLengthAfter = getLengthOfString(elementsAfterSecondHex);
       while (totalLengthAfter > 12) {
         elementsAfterSecondHex.pop(); // Обрезаем, если длина превышает 12
@@ -154,13 +178,9 @@ const TerminalLines = () => {
       return (
         <div className="line" key={`line-${lineIndex}`}>
           <span className="hex">0x{firstHex}</span>
-          <div className="container">
-            {elementsBeforeWord}
-          </div>
+          <div className="container">{elementsBeforeWord}</div>
           <span className="hex">0x{secondHex}</span>
-          <div className="container">
-            {elementsAfterSecondHex}
-          </div>
+          <div className="container">{elementsAfterSecondHex}</div>
         </div>
       );
     };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/terminal.css";
+import "../styles/mobile.css";
 import TerminalLines from "./TerminalLines";
 import Game from "./game";
 import CV from "./cvBox/menu";
@@ -14,7 +15,7 @@ const Terminal = () => {
 
   useEffect(() => {
     const asciiSymbol = "█";
-    const delay = 60; // Задержка между символами
+    const delay = 30; // Задержка между символами
 
     // Функция для анимации печати текста
     const typeText = (text, setter, callback) => {

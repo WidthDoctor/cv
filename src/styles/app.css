@@ -17,3 +17,9 @@ body{
     background-position: center; /* Размер изображения из переменной */
     transition: background-size 0.3s ease-in-out; /* Плавное изменение размера */
 }
+* {
+    user-select: none; /* Запрещает выделение текста */
+    -webkit-user-select: none; /* Для поддержки старых версий браузеров */
+    -moz-user-select: none; /* Для Firefox */
+    -ms-user-select: none; /* Для Internet Explorer */
+}
