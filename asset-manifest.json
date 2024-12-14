@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/WidthDoctor/cv/static/css/main.6078c6f5.css",
-    "main.js": "/WidthDoctor/cv/static/js/main.c5e86431.js",
-    "static/media/screenbg.png": "/WidthDoctor/cv/static/media/screenbg.8a2310236ec56ee86cb1.png",
-    "index.html": "/WidthDoctor/cv/index.html",
-    "main.6078c6f5.css.map": "/WidthDoctor/cv/static/css/main.6078c6f5.css.map",
-    "main.c5e86431.js.map": "/WidthDoctor/cv/static/js/main.c5e86431.js.map"
+    "main.css": "/cv/static/css/main.a8cb841d.css",
+    "main.js": "/cv/static/js/main.c5e86431.js",
+    "static/media/screenbg.png": "/cv/static/media/screenbg.8a2310236ec56ee86cb1.png",
+    "index.html": "/cv/index.html",
+    "main.a8cb841d.css.map": "/cv/static/css/main.a8cb841d.css.map",
+    "main.c5e86431.js.map": "/cv/static/js/main.c5e86431.js.map"
   },
   "entrypoints": [
-    "static/css/main.6078c6f5.css",
+    "static/css/main.a8cb841d.css",
     "static/js/main.c5e86431.js"
   ]
 }
