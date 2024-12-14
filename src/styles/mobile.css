@@ -3,37 +3,56 @@
 /* Extra Small Devices, Phones (less than 600px) */
 @media only screen and (max-width: 599px) {
     span{
-        font-size: 10px;
+        font-size: 13px;
+    }
+    .textContainer{
+        width: 95%;
     }
     .hover-display{
-        right: 5%;
-        bottom: 0;
+
+        right: 54px;
+        bottom: 5%;
         height: 115px;
-       }/* Add your styles for extra small devices here */
+    }
+    .hover-display>span{
+        font-size: 23px;
+    }
+    .profile-container{
+        max-width: 100%;
+        align-items: flex-start;
+    }
 }
 
 /* Small Devices, Phones (600px and up) */
 @media only screen and (min-width: 600px) and (max-width: 767px) {
     span{
-        font-size: 15px;
+        font-size: 20px;
         letter-spacing: normal;
     }
     .hover-display{
         right: 5%;
         bottom: 0;
         height: 115px;
-       } /* Add your styles for small devices here */
+       }
 }
 
 /* Medium Devices, Tablets (768px and up) */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .terminal-lines{
-        min-width: 700px;
+        max-width: 95%;
     }
     .hover-display{
         right: 5%;
         bottom: 0;
         height: 115px;
+       }
+       .cv-container{
+           min-width: 90%;
+           max-width: 95%;
+
+       }
+       .profile-container{
+        align-self: center;
        }
 }
 
