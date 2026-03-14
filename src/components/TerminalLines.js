@@ -53,8 +53,11 @@ const TerminalLines = () => {
 
   useEffect(() => {
     const isMobileView = window.matchMedia("(max-width: 767px)").matches;
-    const charsPerBlock = isMobileView ? 25 : 12;
-    const totalLines = isMobileView ? 14 : 20; // Общее количество строк
+    const isShortMobileView =
+      window.matchMedia("(max-width: 599px)").matches &&
+      window.innerHeight <= 740;
+    const charsPerBlock = isMobileView ? (isShortMobileView ? 20 : 25) : 12;
+    const totalLines = isMobileView ? (isShortMobileView ? 10 : 14) : 20; // Общее количество строк
     const maxWords = 5; // Максимум слов
     const maxCombos = 5; // Максимум комбо
     let usedWords = []; // Храним использованные слова

@@ -27,7 +27,7 @@
     transform: none;
     width: 100%;
     height: auto;
-    min-height: 100vh;
+    min-height: 100dvh;
     max-height: none;
     padding: 12px 10px 18px;
     align-items: flex-start;
@@ -38,14 +38,28 @@
     width: 100%;
     align-self: flex-start;
     text-align: left;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .terminal-header .greet,
   .terminal-header .triesLeft,
   .terminal-header .lock-status {
     width: 100%;
+    max-width: 100%;
     text-align: left;
     margin-left: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.25;
+  }
+
+  .terminal-header-actions {
+    width: 100%;
+    position: relative;
+    min-height: 36px;
+    margin-bottom: 4px;
   }
 
   .greet {
@@ -61,7 +75,8 @@
   .terminal-lines {
     margin-top: 40px;
     width: 100%;
-    max-height: none;
+    max-height: 56dvh;
+    min-height: 0;
     overflow: hidden;
     padding: 8px 8px 12px;
     box-sizing: border-box;
@@ -71,6 +86,10 @@
   }
 
   .help-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
     width: 34px;
     height: 34px;
     font-size: 21px;
@@ -99,9 +118,18 @@
   .victory-access {
     font-size: clamp(22px, 7.4vw, 30px);
     letter-spacing: 1.2px;
-    width: calc(100vw - 24px);
-    max-width: calc(100vw - 24px);
-    white-space: nowrap;
+    display: block;
+    position: static;
+    width: auto;
+    max-width: 92vw;
+    left: auto;
+    top: auto;
+    transform: none;
+    padding: 0;
+    box-sizing: border-box;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal;
     text-align: center;
     line-height: 1.1;
   }
@@ -153,7 +181,7 @@
     position: sticky;
     bottom: 0;
     width: 100%;
-    height: 128px;
+    height: 108px;
     margin-top: 8px;
     padding: 8px;
     box-sizing: border-box;
@@ -227,15 +255,120 @@
 
 @media only screen and (max-width: 430px) {
   .victory-sequence-overlay {
+    position: fixed;
     inset: 0;
-    padding: 0 12px;
+    padding: 0 10px;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .victory-access {
-    width: 100%;
-    max-width: 100%;
+    max-width: 95vw;
     letter-spacing: 1px;
+    font-size: clamp(18px, 7.6vw, 26px);
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  span {
+    font-size: 13px;
+    letter-spacing: 0.25px;
+  }
+
+  .textContainer {
+    padding: 8px 6px 14px;
+  }
+
+  .greet {
+    margin-top: 10px;
+  }
+
+  .triesLeft,
+  .lock-status {
+    font-size: 12px;
+  }
+
+  .terminal-lines {
+    margin-top: 24px;
+    padding: 6px 6px 10px;
+    border-radius: 4px;
+    max-height: 52dvh;
+  }
+
+  .line {
+    grid-template-columns: 56px 1fr;
+    column-gap: 4px;
+    row-gap: 3px;
+    margin-bottom: 4px;
+  }
+
+  .hex {
+    width: 56px;
+    font-size: 12px;
+  }
+
+  .container > span {
+    font-size: 12px;
+  }
+
+  .hover-display {
+    height: 92px;
+    padding: 6px;
+  }
+
+  .hover-display > span {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .help-button {
+    top: 2%;
+    right: 2%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .help-popup {
+    width: 96%;
+    padding: 10px;
+  }
+
+  .help-title {
+    font-size: 18px;
+  }
+
+  .help-popup > span {
+    font-size: 13px;
+  }
+
+  .victory-sequence-overlay {
+    padding: 0 8px;
+  }
+
+  .victory-access {
+    max-width: 96vw;
+    font-size: clamp(16px, 7.2vw, 22px);
+    letter-spacing: 0.6px;
+    white-space: normal;
+    line-height: 1.15;
+  }
+
+  .victory-xp {
+    top: 56%;
+    font-size: 17px;
+  }
+
+  .menu-container > span,
+  .exit {
+    min-height: 38px;
+    padding: 8px 6px;
+  }
+
+  .info-container {
+    margin-top: 16px;
   }
 }
 
