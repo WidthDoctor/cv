@@ -1,36 +1,48 @@
 .profile-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.info-container{
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
+.info-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
 }
-.info-container>span{
-    margin-top: 10px;
+.info-container > span {
+  margin-top: 10px;
 }
-.exit{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    text-align: center;
-    align-self: center;
+.exit {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+  align-self: center;
 }
-.exit:hover{
-    cursor: pointer;
+.exit:hover {
+  cursor: pointer;
   background-color: hsl(120, 40%, 54%);
 }
-.greet{
-    margin-top: 10px;
+.greet {
+  margin-top: 10px;
 }
-a{
-color: inherit;
+a {
+  color: inherit;
 }
-body{
-    background-repeat: repeat-y;
+body {
+  background-repeat: repeat-y;
 }
-.system-notice{
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
+.system-notice {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-cv-link {
+  text-decoration: underline !important;
+}
+
+.profile-label {
+  text-decoration: none !important;
+}
+
+.profile-contact-link {
+  text-decoration: underline !important;
 }

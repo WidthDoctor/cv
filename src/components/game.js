@@ -1,30 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-const Game = ({onVictory}) => {
-  const [randomWord, setRandomWord] = useState(""); // Загаданное слово
-  const [words, setWords] = useState([]); // Список слов
-  const [tries, setTries] = useState(5); // Количество оставшихся попыток
-  const [triesText, setTriesText] = useState("█████"); // Текст для .triesLeft
+const Game = ({ onVictory, onLockout, isLocked }) => {
+  const [randomWord, setRandomWord] = useState("");
+  const [tries, setTries] = useState(5);
   const [hoveredText, setHoveredText] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    // Функция для нахождения всех слов и выбора случайного
     const findWords = () => {
       const wordElements = Array.from(document.querySelectorAll(".word"));
       const wordText = wordElements.map((el) => el.textContent.trim());
-      setWords(wordText);
 
       if (wordText.length > 0) {
         const randomIndex = Math.floor(Math.random() * wordText.length);
         setRandomWord(wordText[randomIndex]);
-        console.log("Случайно выбранное слово:", wordText[randomIndex]);
-      } else {
-        console.log("Нет слов для выбора.");
       }
     };
 
-    // Ждем 100 мс перед выполнением, чтобы элементы были отрисованы
     const timeoutId = setTimeout(() => {
       findWords();
     }, 100);
@@ -46,7 +38,7 @@ const Game = ({onVictory}) => {
     };
 
     const handleMouseOut = () => {
-      setHoveredText(""); // Сбрасываем текст при уходе курсора
+      setHoveredText("");
     };
 
     const container = document.querySelector(".terminal-background");
@@ -65,50 +57,97 @@ const Game = ({onVictory}) => {
 
   useEffect(() => {
     const handleClick = (event) => {
+      if (isLocked) return;
+
       const target = event.target;
 
-      // Если кликнули на комбо
-      if (target.classList.contains("Kombo")) {
-        target.style.pointerEvents = "none"; // Делаем комбо некликабельным
+      if (
+        target.classList.contains("word") ||
+        target.classList.contains("Kombo") ||
+        target.classList.contains("symbol")
+      ) {
+        setHoveredText(target.textContent.trim());
+      }
 
-        // Заменяем случайное слово на точки
+      if (target.classList.contains("Kombo")) {
+        const comboText = target.textContent.trim();
+        target.style.pointerEvents = "none";
+
         const wordElements = Array.from(document.querySelectorAll(".word"));
         const validWords = wordElements.filter(
-          (el) => el.textContent.trim() !== randomWord
+          (el) => el.textContent.trim() !== randomWord,
         );
 
-        if (validWords.length > 0) {
+        const canRemoveDud = validWords.length > 0;
+        const canRestoreAttempts = tries < 5;
+
+        let comboAction = "none";
+        if (canRemoveDud && canRestoreAttempts) {
+          comboAction = Math.random() < 0.5 ? "remove-dud" : "restore-attempts";
+        } else if (canRemoveDud) {
+          comboAction = "remove-dud";
+        } else if (canRestoreAttempts) {
+          comboAction = "restore-attempts";
+        }
+
+        if (comboAction === "remove-dud") {
           const randomIndex = Math.floor(Math.random() * validWords.length);
           const wordToReplace = validWords[randomIndex];
+          const removedWord = wordToReplace.textContent.trim();
           wordToReplace.textContent = "......";
           wordToReplace.classList.remove("word");
           wordToReplace.classList.add("symbol");
+
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            `>${comboText}`,
+            ">Bracket sequence detected",
+            `>Wrong word removed: ${removedWord}`,
+          ]);
+        }
+
+        if (comboAction === "restore-attempts") {
+          setTries(5);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            `>${comboText}`,
+            ">Bracket sequence detected",
+            ">Attempts restored",
+          ]);
+        }
+
+        if (comboAction === "none") {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            `>${comboText}`,
+            ">Bracket sequence detected",
+            ">No additional effect",
+          ]);
         }
       }
 
-      // Если кликнули на слово
       if (target.classList.contains("word")) {
         const clickedWord = target.textContent.trim();
 
-        if (!randomWord) return; // Если слово еще не загадано, ничего не делаем
+        if (!randomWord) return;
 
         if (clickedWord !== randomWord) {
-          // Уменьшаем количество попыток
           setTries((prevTries) => {
+            if (prevTries <= 0) return 0;
+
             const newTries = prevTries - 1;
-            if (newTries >= 0) {
-              setTriesText("█".repeat(newTries)); // Обновляем текст с "█"
+
+            if (newTries === 0 && onLockout) {
+              onLockout();
             }
+
             return newTries;
           });
 
-          // Выводим количество совпадающих букв
           const matchingLetters = clickedWord
             .split("")
             .filter((letter, index) => letter === randomWord[index]).length;
-          console.log(
-            `Неверное слово: ${clickedWord}. Совпадающих букв: ${matchingLetters}`
-          );
+
           setMessages((prevMessages) => [
             ...prevMessages,
             `>${clickedWord}`,
@@ -116,14 +155,13 @@ const Game = ({onVictory}) => {
             `>Likeness = ${matchingLetters}`,
           ]);
         }
+
         if (clickedWord === randomWord) {
-          console.log('pobeda');
           onVictory();
         }
       }
     };
 
-    // Навешиваем обработчик событий
     const container = document.querySelector(".terminal-background");
     if (container) {
       container.addEventListener("click", handleClick);
@@ -134,22 +172,25 @@ const Game = ({onVictory}) => {
         container.removeEventListener("click", handleClick);
       }
     };
-  }, [randomWord]);
+  }, [isLocked, onLockout, onVictory, randomWord, tries]);
 
   useEffect(() => {
-    // Обновляем текст в элементе .triesLeft
     const triesElement = document.querySelector(".triesLeft");
     if (triesElement) {
-      triesElement.textContent = `Attempts remaining: ${triesText}`;
+      const triesCells = Array.from({ length: tries }, (_, index) => {
+        return `<span class="tries-cell" data-index="${index}">█</span>`;
+      }).join("");
+
+      triesElement.innerHTML = `Attempts remaining:<span class="tries-meter">${triesCells}</span>`;
     }
-  }, [triesText]);
+  }, [tries]);
 
   return (
-    <div className="hover-display">
+    <div className="hover-display" data-tries={tries}>
       {messages.map((message, index) => (
         <span key={index}>{message}</span>
       ))}
-      <span>{hoveredText ? `>${hoveredText}` : ">" + "█"}</span>
+      <span>{hoveredText ? `>${hoveredText}` : ">█"}</span>
     </div>
   );
 };

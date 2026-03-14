@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/cv.css";
 import ProfileLog from "./profile";
-import SkillLog from "./skills.js"
+import SkillLog from "./skills.js";
 import ProjectsLog from "./projects.js";
 import ExperienceLog from "./experience.js";
 import "../../styles/mobile.css";
@@ -13,7 +13,6 @@ const CV = () => {
   const [text4, setText4] = useState("");
   const [text5, setText5] = useState("");
   const [text6, setText6] = useState("");
-  const [text7, setText7] = useState("");
   const [Menu, setMenu] = useState(true);
   const [Profile, setProfile] = useState(false);
   const [Skill, setSkill] = useState(false);
@@ -47,8 +46,7 @@ const CV = () => {
         typeText("1. [JUNIOR DEVELOPER PROFILE]", setText3, () => {
           typeText("2. [SKILLS INVENTORY]", setText4, () => {
             typeText("3. [CURRENT PROJECTS]", setText5, () => {
-              typeText("4. [EXPERIENCE LOG]", setText6, () => {
-              });
+              typeText("4. [EXPERIENCE LOG]", setText6, () => {});
             });
           });
         });
@@ -79,9 +77,22 @@ const CV = () => {
             >
               {text4}
             </span>
-            <span onClick={() => {setProjects(true); setMenu(false)}}>{text5}</span>
-            <span onClick={() => {setExperience(true); setMenu(false)}}>{text6}</span>
-            <span>{text7}</span>
+            <span
+              onClick={() => {
+                setProjects(true);
+                setMenu(false);
+              }}
+            >
+              {text5}
+            </span>
+            <span
+              onClick={() => {
+                setExperience(true);
+                setMenu(false);
+              }}
+            >
+              {text6}
+            </span>
           </div>
         </>
       )}
@@ -93,9 +104,30 @@ const CV = () => {
           }}
         />
       )}
-      {Skill && (<SkillLog exit={() => {setMenu(true); setSkill(false)}} />)}
-      {Projects && (<ProjectsLog exit={() => {setMenu(true); setProjects(false)}} />)}
-      {Experience && (<ExperienceLog exit={() => {setMenu(true); setExperience(false)}} />)}
+      {Skill && (
+        <SkillLog
+          exit={() => {
+            setMenu(true);
+            setSkill(false);
+          }}
+        />
+      )}
+      {Projects && (
+        <ProjectsLog
+          exit={() => {
+            setMenu(true);
+            setProjects(false);
+          }}
+        />
+      )}
+      {Experience && (
+        <ExperienceLog
+          exit={() => {
+            setMenu(true);
+            setExperience(false);
+          }}
+        />
+      )}
     </div>
   );
 };

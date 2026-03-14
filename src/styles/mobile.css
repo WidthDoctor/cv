@@ -2,65 +2,445 @@
 
 /* Extra Small Devices, Phones (less than 600px) */
 @media only screen and (max-width: 599px) {
-    span{
-        font-size: 13px;
-    }
-    .textContainer{
-        width: 95%;
-    }
-    .hover-display{
+  body {
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
 
-        right: 54px;
-        bottom: 5%;
-        height: 115px;
-    }
-    .hover-display>span{
-        font-size: 23px;
-    }
-    .profile-container{
-        max-width: 100%;
-        align-items: flex-start;
-    }
+  .App,
+  .terminal-background {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  span {
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+
+  .textContainer {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
+    padding: 12px 10px 18px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .terminal-header {
+    width: 100%;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .terminal-header .greet,
+  .terminal-header .triesLeft,
+  .terminal-header .lock-status {
+    width: 100%;
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .greet {
+    margin-top: 14px;
+  }
+
+  .triesLeft,
+  .lock-status {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .terminal-lines {
+    margin-top: 40px;
+    width: 100%;
+    max-height: none;
+    overflow: hidden;
+    padding: 8px 8px 12px;
+    box-sizing: border-box;
+    border: 1px solid hsl(120, 30%, 35%);
+    border-radius: 6px;
+    background: rgba(6, 22, 6, 0.55);
+  }
+
+  .help-button {
+    width: 34px;
+    height: 34px;
+    font-size: 21px;
+  }
+
+  .help-popup {
+    width: 94%;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .help-title {
+    font-size: 20px;
+  }
+
+  .help-popup > span {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .help-close {
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+
+  .victory-access {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .victory-xp {
+    top: 57%;
+    left: 2%;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .line {
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    row-gap: 4px;
+    column-gap: 6px;
+    margin-bottom: 6px;
+    align-items: center;
+  }
+
+  .hex {
+    width: 64px;
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+
+  .container {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .container > span {
+    font-size: 13px;
+    letter-spacing: 0;
+    flex: 0 0 auto;
+  }
+
+  .terminal-lines span,
+  .hover-display > span,
+  .triesLeft,
+  .lock-status {
+    letter-spacing: 0;
+  }
+
+  .hover-display {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 128px;
+    margin-top: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid hsl(120, 30%, 35%);
+    border-radius: 6px;
+    background: rgba(6, 22, 6, 0.7);
+  }
+
+  .hover-display > span {
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  .cv-container,
+  .profile-container,
+  .info-container,
+  .system-notice {
+    width: 100%;
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .menu-container {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .menu-container > span,
+  .exit {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 8px;
+    margin-top: 10px;
+    line-height: 1.35;
+    min-height: 42px;
+  }
+
+  .profile-container span,
+  .menu-container span,
+  .info-container > span,
+  .system-notice > span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.35;
+  }
+
+  .info-container {
+    margin-top: 22px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .symbol,
+  .word,
+  .Kombo,
+  .menu-container > span,
+  .exit {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(114, 255, 114, 0.2);
+  }
+
+  .Kombo {
+    animation: combo-mobile-pulse 1.7s ease-in-out infinite;
+  }
 }
 
 /* Small Devices, Phones (600px and up) */
 @media only screen and (min-width: 600px) and (max-width: 767px) {
-    span{
-        font-size: 20px;
-        letter-spacing: normal;
-    }
-    .hover-display{
-        right: 5%;
-        bottom: 0;
-        height: 115px;
-       }
+  span {
+    font-size: 18px;
+    letter-spacing: 0.4px;
+  }
+
+  .textContainer {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    min-height: 100vh;
+    max-height: none;
+    padding: 18px 18px 28px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .terminal-header {
+    width: 100%;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .terminal-header .greet,
+  .terminal-header .triesLeft,
+  .terminal-header .lock-status {
+    width: 100%;
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .terminal-lines {
+    width: 100%;
+    overflow: hidden;
+    max-height: none;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid hsl(120, 30%, 35%);
+    border-radius: 6px;
+    background: rgba(6, 22, 6, 0.45);
+  }
+
+  .help-button {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+
+  .help-popup {
+    width: 92%;
+    padding: 14px;
+  }
+
+  .help-title {
+    font-size: 24px;
+  }
+
+  .help-popup > span {
+    font-size: 16px;
+  }
+
+  .help-close {
+    font-size: 16px;
+  }
+
+  .victory-access {
+    font-size: 34px;
+    letter-spacing: 2px;
+  }
+
+  .victory-xp {
+    top: 56%;
+    left: 2%;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .Kombo {
+    animation: combo-mobile-pulse 1.7s ease-in-out infinite;
+  }
+
+  .line {
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    row-gap: 4px;
+    column-gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .hex {
+    width: 72px;
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+
+  .container {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .container > span {
+    font-size: 15px;
+    letter-spacing: 0;
+    flex: 0 0 auto;
+  }
+
+  .terminal-lines span,
+  .hover-display > span,
+  .triesLeft,
+  .lock-status {
+    letter-spacing: 0;
+  }
+
+  .hover-display {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 140px;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid hsl(120, 30%, 35%);
+    border-radius: 6px;
+    background: rgba(6, 22, 6, 0.65);
+  }
+
+  .cv-container,
+  .profile-container,
+  .info-container,
+  .menu-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .menu-container > span,
+  .exit {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    line-height: 1.35;
+  }
+
+  .profile-container span,
+  .menu-container span,
+  .info-container > span,
+  .system-notice > span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.35;
+  }
 }
 
 /* Medium Devices, Tablets (768px and up) */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .terminal-lines{
-        max-width: 95%;
-    }
-    .hover-display{
-        right: 5%;
-        bottom: 0;
-        height: 115px;
-       }
-       .cv-container{
-           min-width: 90%;
-           max-width: 95%;
+  .terminal-lines {
+    width: 95%;
+    overflow-x: auto;
+  }
 
-       }
-       .profile-container{
-        align-self: center;
-       }
+  .line {
+    min-width: 640px;
+  }
+
+  .hover-display {
+    right: 5%;
+    bottom: 0;
+    height: 140px;
+  }
+
+  .cv-container {
+    min-width: 90%;
+    max-width: 95%;
+  }
+
+  .profile-container {
+    align-self: center;
+  }
+
+  .profile-container span,
+  .menu-container span,
+  .info-container > span,
+  .system-notice > span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 }
 
 /* Large Devices, Desktops (992px and up) */
 @media only screen and (min-width: 992px) and (max-width: 1259px) {
-   .hover-display{
+  .hover-display {
     right: 10%;
     bottom: 0;
     height: 115px;
-   }
+  }
+
+  .terminal-lines {
+    width: 60%;
+  }
+}
+
+@keyframes combo-mobile-pulse {
+  0%,
+  100% {
+    text-shadow:
+      1px 1px rgb(58, 66, 56),
+      0 0 0 rgba(151, 255, 151, 0);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      1px 1px rgb(58, 66, 56),
+      0 0 6px rgba(151, 255, 151, 0.7);
+    filter: brightness(1.14);
+  }
 }

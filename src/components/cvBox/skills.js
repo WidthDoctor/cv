@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/profile.css";
 import "../../styles/mobile.css";
-const SkillLog = ({exit}) => {
+const SkillLog = ({ exit }) => {
   const [text1, setText1] = useState(""); // Для первого спана
   const [text2, setText2] = useState(""); // Для второго спана
   const [text3, setText3] = useState(""); // Для третьего спана
@@ -13,6 +13,7 @@ const SkillLog = ({exit}) => {
   const [text9, setText9] = useState("");
   const [text10, setText10] = useState("");
   const [text11, setText11] = useState("");
+  const [text12, setText12] = useState("");
 
   useEffect(() => {
     const asciiSymbol = "█";
@@ -42,32 +43,43 @@ const SkillLog = ({exit}) => {
     typeText("Vault-Tec Personnel Terminal", setText1, () => {
       typeText("[>>> SCANNING SKILLS DATABASE <<<]", setText2, () => {
         typeText("[>>> RETRIEVING TECH STACK DATA <<<]", setText3, () => {
-          typeText(
-            "[>>> SKILLS INVENTORY UPDATED <<<]",
-            setText4,
-            () => {
-              typeText("1. HTML, CSS, JavaScript (ES6+), JSX", setText5, () => {
-                typeText("2. React.js (learning)", setText6, () => {
-                  typeText("3. Figma pixel-perfect implementations", setText7, () => {
+          typeText("[>>> SKILLS INVENTORY UPDATED <<<]", setText4, () => {
+            typeText("1. HTML, CSS, JavaScript (ES6+), JSX", setText5, () => {
+              typeText("2. React.js", setText6, () => {
+                typeText(
+                  "3. Next.js (SSR/SSG, SEO optimization)",
+                  setText7,
+                  () => {
                     typeText(
-                      "4. Git and GitHub workflows",
+                      "4. Figma pixel-perfect implementations",
                       setText8,
                       () => {
-                        typeText("5. Basic knowledge of Node.js", setText9, () => {
-                          typeText(
-                            "6. API integration and data handling with JSON",
-                            setText10, () =>{
-                              typeText("[EXIT]", setText11)
-                            }
-                          );
-                        });
-                      }
+                        typeText(
+                          "5. Git and GitHub workflows",
+                          setText9,
+                          () => {
+                            typeText(
+                              "6. Basic knowledge of Node.js",
+                              setText10,
+                              () => {
+                                typeText(
+                                  "7. API integration and data handling with JSON",
+                                  setText11,
+                                  () => {
+                                    typeText("[EXIT]", setText12);
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
                     );
-                  });
-                });
+                  },
+                );
               });
-            }
-          );
+            });
+          });
         });
       });
     });
@@ -86,8 +98,11 @@ const SkillLog = ({exit}) => {
         <span>{text8}</span>
         <span>{text9}</span>
         <span>{text10}</span>
+        <span>{text11}</span>
       </div>
-      <span onClick={exit} className="exit">{text11}</span>
+      <span onClick={exit} className="exit">
+        {text12}
+      </span>
     </div>
   );
 };

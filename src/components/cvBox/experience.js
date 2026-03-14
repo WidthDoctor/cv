@@ -26,6 +26,7 @@ const ExperienceLog = ({ exit }) => {
   const [text22, setText22] = useState("");
   const [text23, setText23] = useState("");
   const [text24, setText24] = useState("");
+  const [text25, setText25] = useState("");
   useEffect(() => {
     const asciiSymbol = "█";
     const delay = 10; // Задержка между символами
@@ -110,68 +111,74 @@ const ExperienceLog = ({ exit }) => {
                                                                   setText18,
                                                                   () => {
                                                                     typeText(
-                                                                      "*** SYSTEM NOTICE ***",
-                                                                      setText19,
+                                                                      "> STATUS UPDATE: Since 2023 - Present, conducting self-training protocols in Front-End systems across the Wasteland.",
+                                                                      setText25,
                                                                       () => {
                                                                         typeText(
-                                                                          "> Vault-Tec Overseer Notes:",
-                                                                          setText20,
+                                                                          "*** SYSTEM NOTICE ***",
+                                                                          setText19,
                                                                           () => {
                                                                             typeText(
-                                                                              "  - Candidate demonstrates consistent skill progression in Front-End Development.",
-                                                                              setText21,
+                                                                              "> Vault-Tec Overseer Notes:",
+                                                                              setText20,
                                                                               () => {
                                                                                 typeText(
-                                                                                  "    - Additional tasks needed for Stage #2 completion. It’s time to unlock that “Lucky” perk, Vault Dweller!",
-                                                                                  setText22,
+                                                                                  "  - Candidate demonstrates consistent skill progression in Front-End Development.",
+                                                                                  setText21,
                                                                                   () => {
                                                                                     typeText(
-                                                                                      "*** PLEASE EXIT WHEN DONE ***",
-                                                                                      setText23,
+                                                                                      "    - Additional tasks needed for Stage #2 completion. It’s time to unlock that “Lucky” perk, Vault Dweller!",
+                                                                                      setText22,
                                                                                       () => {
                                                                                         typeText(
-                                                                                          "EXIT",
-                                                                                          setText24,
-                                                                                          () => {}
+                                                                                          "*** PLEASE EXIT WHEN DONE ***",
+                                                                                          setText23,
+                                                                                          () => {
+                                                                                            typeText(
+                                                                                              "EXIT",
+                                                                                              setText24,
+                                                                                              () => {},
+                                                                                            );
+                                                                                          },
                                                                                         );
-                                                                                      }
+                                                                                      },
                                                                                     );
-                                                                                  }
+                                                                                  },
                                                                                 );
-                                                                              }
+                                                                              },
                                                                             );
-                                                                          }
+                                                                          },
                                                                         );
-                                                                      }
+                                                                      },
                                                                     );
-                                                                  }
+                                                                  },
                                                                 );
-                                                              }
+                                                              },
                                                             );
-                                                          }
+                                                          },
                                                         );
-                                                      }
+                                                      },
                                                     );
-                                                  }
+                                                  },
                                                 );
-                                              }
+                                              },
                                             );
-                                          }
+                                          },
                                         );
-                                      }
+                                      },
                                     );
-                                  }
+                                  },
                                 );
-                              }
+                              },
                             );
-                          }
+                          },
                         );
-                      }
+                      },
                     );
-                  }
+                  },
                 );
               });
-            }
+            },
           );
         });
       });
@@ -199,6 +206,7 @@ const ExperienceLog = ({ exit }) => {
         <span>{text16}</span>
         <span>{text17}</span>
         <span>{text18}</span>
+        <span>{text25}</span>
         <div className="system-notice">
           <span>{text19}</span>
           <span>{text20}</span>

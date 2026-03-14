@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/profile.css";
 import "../../styles/mobile.css";
-const ProfileLog = ({exit}) => {
+const ProfileLog = ({ exit }) => {
   const [text1, setText1] = useState(""); // Для первого спана
   const [text2, setText2] = useState(""); // Для второго спана
   const [text3, setText3] = useState(""); // Для третьего спана
@@ -13,6 +13,12 @@ const ProfileLog = ({exit}) => {
   const [text9, setText9] = useState("");
   const [text10, setText10] = useState("");
   const [text11, setText11] = useState("");
+  const [text12, setText12] = useState("");
+  const [text13, setText13] = useState("");
+  const [text14, setText14] = useState("");
+  const [text15, setText15] = useState("");
+  const [text16, setText16] = useState("");
+  const [text17, setText17] = useState("");
 
   useEffect(() => {
     const asciiSymbol = "█";
@@ -56,17 +62,42 @@ const ProfileLog = ({exit}) => {
                         typeText("OVERVIEW:", setText9, () => {
                           typeText(
                             "Self-taught developer with a strong foundation in web development, passionate about creating responsive and interactive user interfaces. Eager to contribute to real-world projects while continuing to grow skills in modern technologies.",
-                            setText10, () =>{
-                              typeText("[EXIT]", setText11)
-                            }
+                            setText10,
+                            () => {
+                              typeText("PERSONNEL DOSSIER:", setText11, () => {
+                                typeText("standart cv", setText12, () => {
+                                  typeText(
+                                    "COMMUNICATION LINE:",
+                                    setText13,
+                                    () => {
+                                      typeText("+500560146", setText14, () => {
+                                        typeText(
+                                          "MAIL TERMINAL NODE:",
+                                          setText15,
+                                          () => {
+                                            typeText(
+                                              "elskel1812@gmail.com",
+                                              setText16,
+                                              () => {
+                                                typeText("[EXIT]", setText17);
+                                              },
+                                            );
+                                          },
+                                        );
+                                      });
+                                    },
+                                  );
+                                });
+                              });
+                            },
                           );
                         });
-                      }
+                      },
                     );
                   });
                 });
               });
-            }
+            },
           );
         });
       });
@@ -86,8 +117,34 @@ const ProfileLog = ({exit}) => {
         <span>{text8}</span>
         <span>{text9}</span>
         <span>{text10}</span>
+        <span>
+          <span className="profile-label">{text11}</span>{" "}
+          <a
+            className="profile-cv-link"
+            href="https://widthdoctor.github.io/actualCV/"
+          >
+            {text12}
+          </a>
+        </span>
+        <span>
+          <span className="profile-label">{text13}</span>{" "}
+          <a className="profile-contact-link" href="tel:+500560146">
+            {text14}
+          </a>
+        </span>
+        <span>
+          <span className="profile-label">{text15}</span>{" "}
+          <a
+            className="profile-contact-link"
+            href="mailto:elskel1812@gmail.com"
+          >
+            {text16}
+          </a>
+        </span>
       </div>
-      <span onClick={exit} className="exit">{text11}</span>
+      <span onClick={exit} className="exit">
+        {text17}
+      </span>
     </div>
   );
 };

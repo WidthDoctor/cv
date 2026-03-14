@@ -2,6 +2,25 @@ import React, { useState, useEffect } from "react";
 import "../styles/terminal.css";
 import "../styles/mobile.css";
 
+const VOCABULARY = [
+  "RETINA",
+  "RETAIN",
+  "RATINE",
+  "EOLIAN",
+  "TONIER",
+  "ORNATE",
+  "ORIENT",
+  "NORITE",
+  "ATONER",
+  "AUNTIE",
+  "RATION",
+  "ARIOSE",
+  "TRIODE",
+  "DOTIER",
+  "EDITOR",
+  "IRONES",
+];
+
 // Функция для генерации случайного шестнадцатеричного значения
 const generateHex = () => {
   return Math.random().toString(16).substr(2, 4).toUpperCase(); // Четыре символа (0-9, A-F)
@@ -30,29 +49,12 @@ const generateCombo = () => {
 };
 
 const TerminalLines = () => {
-  const vocabulary = [
-    "RETINA",
-    "RETAIN",
-    "RATINE",
-    "EOLIAN",
-    "TONIER",
-    "ORNATE",
-    "ORIENT",
-    "NORITE",
-    "ATONER",
-    "AUNTIE",
-    "RATION",
-    "ARIOSE",
-    "TRIODE",
-    "DOTIER",
-    "EDITOR",
-    "IRONES",
-  ];
-
   const [lines, setLines] = useState([]);
 
   useEffect(() => {
-    const totalLines = 20; // Общее количество строк
+    const isMobileView = window.matchMedia("(max-width: 767px)").matches;
+    const charsPerBlock = isMobileView ? 25 : 12;
+    const totalLines = isMobileView ? 14 : 20; // Общее количество строк
     const maxWords = 5; // Максимум слов
     const maxCombos = 5; // Максимум комбо
     let usedWords = []; // Храним использованные слова
@@ -77,35 +79,37 @@ const TerminalLines = () => {
 
     const generateRandomElements = (count, isComboLine, isWordLine) => {
       let elements = [];
-      let comboAdded = false;
-      let wordAdded = false;
+      const comboIndex = isComboLine ? Math.floor(Math.random() * count) : -1;
+      let wordIndex = isWordLine ? Math.floor(Math.random() * count) : -1;
+
+      if (comboIndex !== -1 && wordIndex !== -1 && comboIndex === wordIndex) {
+        wordIndex = (wordIndex + 1) % count;
+      }
 
       for (let i = 0; i < count; i++) {
-        if (isComboLine && !comboAdded) {
+        if (isComboLine && i === comboIndex) {
           // Добавляем комбо, если линия для комбо и комбо ещё не добавлено
           elements.push(
             <span className="Kombo" key={`combo-${i}-${Math.random()}`}>
               {generateCombo()}
-            </span>
+            </span>,
           );
-          comboAdded = true;
-        } else if (isWordLine && !wordAdded) {
+        } else if (isWordLine && i === wordIndex) {
           // Добавляем слово, если линия для слова и слово ещё не добавлено
           const randomWord = getUniqueWord();
           if (randomWord) {
             elements.push(
               <span className="word" key={`word-${Math.random()}`}>
                 {randomWord}
-              </span>
+              </span>,
             );
-            wordAdded = true;
           }
         } else {
           // Обычный случайный символ
           elements.push(
             <span className="symbol" key={`symbol-${i}-${Math.random()}`}>
               {generateRandomSymbol()}
-            </span>
+            </span>,
           );
         }
       }
@@ -114,10 +118,10 @@ const TerminalLines = () => {
     };
 
     const getUniqueWord = () => {
-      if (usedWords.length >= vocabulary.length) return null; // Если все слова использованы
+      if (usedWords.length >= VOCABULARY.length) return null; // Если все слова использованы
       let word;
       do {
-        word = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+        word = VOCABULARY[Math.floor(Math.random() * VOCABULARY.length)];
       } while (usedWords.includes(word)); // Повторять, пока слово уже использовано
       usedWords.push(word); // Добавляем слово в список использованных
       return word;
@@ -151,26 +155,26 @@ const TerminalLines = () => {
 
       // Генерация элементов до второго HEX
       let elementsBeforeWord = generateRandomElements(
-        12,
+        charsPerBlock,
         isComboLine,
-        isWordLine
+        isWordLine,
       );
 
-      // Проверка, чтобы общая длина не превышала 12
+      // Проверка, чтобы общая длина не превышала лимит строки
       let totalLengthBeforeWord = getLengthOfString(elementsBeforeWord);
-      while (totalLengthBeforeWord > 12) {
+      while (totalLengthBeforeWord > charsPerBlock) {
         elementsBeforeWord.pop(); // Обрезаем, если длина превышает 12
         totalLengthBeforeWord = getLengthOfString(elementsBeforeWord);
       }
 
       // Добавляем второй блок после второго HEX
       let elementsAfterSecondHex = generateRandomElements(
-        12,
+        charsPerBlock,
         isComboLine,
-        isWordLine
+        isWordLine,
       );
       let totalLengthAfter = getLengthOfString(elementsAfterSecondHex);
-      while (totalLengthAfter > 12) {
+      while (totalLengthAfter > charsPerBlock) {
         elementsAfterSecondHex.pop(); // Обрезаем, если длина превышает 12
         totalLengthAfter = getLengthOfString(elementsAfterSecondHex);
       }
@@ -187,7 +191,7 @@ const TerminalLines = () => {
 
     // Генерируем 20 строк
     const generatedLines = Array.from({ length: totalLines }, (_, index) =>
-      generateLine(index)
+      generateLine(index),
     );
     setLines(generatedLines);
   }, []);

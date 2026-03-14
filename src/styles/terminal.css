@@ -1,24 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech&display=swap");
 
 /* Основной стиль для текста */
-span{
+span {
   letter-spacing: 2px;
 }
-.hex{
+.hex {
   cursor: default;
   width: 80px; /* Фиксированная ширина для выравнивания */
   text-align: left;
   white-space: nowrap; /* Для предотвращения переноса текста */
 }
-.line{
+.line {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.symbol:hover, .Kombo:hover, .word:hover { cursor: pointer; background-color: hsl(120, 40%, 54%); }
+.symbol:hover,
+.Kombo:hover,
+.word:hover {
+  cursor: pointer;
+  background-color: hsl(120, 40%, 54%);
+}
 
-.container{
+.symbol:active,
+.Kombo:active,
+.word:active {
+  background-color: hsl(120, 40%, 54%);
+  filter: brightness(1.1);
+}
+
+.container {
   display: flex;
   width: 200px;
   justify-content: space-evenly;
@@ -32,7 +44,7 @@ span {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.hover-display{
+.hover-display {
   width: 200px;
   height: 400px;
   overflow: hidden;
@@ -77,13 +89,191 @@ body {
   z-index: 2; /* Располагаем поверх изображения */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   box-sizing: border-box; /* Учитываем отступы и рамку в размерах */
 }
-.terminal-lines{
+
+.terminal-header {
+  width: 50%;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px 0;
+}
+
+.terminal-header-actions {
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+
+.terminal-header .greet,
+.terminal-header .triesLeft,
+.terminal-header .lock-status {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.tries-meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.tries-cell {
+  display: inline-block;
+}
+
+.terminal-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: center;
+  padding: 20px 0;
+  width: 50%;
+}
+
+.terminal-playground {
+  display: contents;
+}
+
+.terminal-playground.is-locked {
+  pointer-events: none;
+  filter: brightness(0.75);
+}
+
+.lock-status {
+  margin-top: 8px;
+  letter-spacing: 3px;
+  animation: lock-blink 0.8s steps(1) infinite;
+}
+
+.terminal-background.locked {
+  box-shadow: inset 0 0 180px rgba(0, 0, 0, 0.55);
+}
+
+.help-button {
+  position: absolute;
+  top: 6%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid hsl(120, 40%, 54%);
+  background: rgba(6, 22, 6, 0.85);
+  color: hsl(120, 100%, 75%);
+  font-family: "Share Tech", sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 30;
+}
+
+.help-button:hover,
+.help-button:active {
+  background-color: hsl(120, 40%, 54%);
+  color: hsl(120, 100%, 8%);
+}
+
+.help-popup-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 25;
+}
+
+.help-popup {
+  width: min(620px, 92%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid hsl(120, 40%, 54%);
+  background: rgba(6, 22, 6, 0.95);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.help-title {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.help-popup > span {
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 1.25;
+}
+
+.help-close {
+  margin-top: 8px;
+  align-self: flex-end;
+  border: 1px solid hsl(120, 40%, 54%);
+  background: transparent;
+  color: hsl(120, 100%, 75%);
+  font-family: "Share Tech", sans-serif;
+  font-size: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.help-close:hover,
+.help-close:active {
+  background-color: hsl(120, 40%, 54%);
+  color: hsl(120, 100%, 8%);
+}
+
+.victory-sequence-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 28;
+  pointer-events: none;
+}
+
+.victory-access {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 58px;
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.victory-xp {
+  position: fixed;
+  top: 50%;
+  left: 2%;
+  font-size: 40px;
+  letter-spacing: 3px;
+}
+
+.victory-xp.is-visible {
+  animation: xp-fade-blur 0.95s ease 3s forwards;
+}
+
+@keyframes xp-fade-blur {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+@keyframes lock-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.2;
+  }
 }
