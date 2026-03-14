@@ -294,7 +294,7 @@
     margin-top: 24px;
     padding: 6px 6px 10px;
     border-radius: 4px;
-    max-height: 52dvh;
+    /* max-height: 52dvh; */
   }
 
   .line {
@@ -324,7 +324,7 @@
   }
 
   .help-button {
-    top: 2%;
+    top: 50%;
     right: 2%;
     width: 30px;
     height: 30px;

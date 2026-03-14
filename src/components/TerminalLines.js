@@ -56,7 +56,10 @@ const TerminalLines = () => {
     const isShortMobileView =
       window.matchMedia("(max-width: 599px)").matches &&
       window.innerHeight <= 740;
-    const charsPerBlock = isMobileView ? (isShortMobileView ? 20 : 25) : 12;
+    const desktopCharsPerBlock = 12;
+    const charsPerBlock = isMobileView
+      ? desktopCharsPerBlock * 2
+      : desktopCharsPerBlock;
     const totalLines = isMobileView ? (isShortMobileView ? 10 : 14) : 20; // Общее количество строк
     const maxWords = 5; // Максимум слов
     const maxCombos = 5; // Максимум комбо
@@ -81,40 +84,42 @@ const TerminalLines = () => {
     }
 
     const generateRandomElements = (count, isComboLine, isWordLine) => {
-      let elements = [];
-      const comboIndex = isComboLine ? Math.floor(Math.random() * count) : -1;
-      let wordIndex = isWordLine ? Math.floor(Math.random() * count) : -1;
+      const wordText = isWordLine ? getUniqueWord() : null;
+      let comboText = isComboLine ? generateCombo() : null;
 
-      if (comboIndex !== -1 && wordIndex !== -1 && comboIndex === wordIndex) {
-        wordIndex = (wordIndex + 1) % count;
+      if (wordText && comboText && wordText.length + comboText.length > count) {
+        comboText = null;
       }
 
-      for (let i = 0; i < count; i++) {
-        if (isComboLine && i === comboIndex) {
-          // Добавляем комбо, если линия для комбо и комбо ещё не добавлено
-          elements.push(
-            <span className="Kombo" key={`combo-${i}-${Math.random()}`}>
-              {generateCombo()}
-            </span>,
-          );
-        } else if (isWordLine && i === wordIndex) {
-          // Добавляем слово, если линия для слова и слово ещё не добавлено
-          const randomWord = getUniqueWord();
-          if (randomWord) {
-            elements.push(
-              <span className="word" key={`word-${Math.random()}`}>
-                {randomWord}
-              </span>,
-            );
-          }
-        } else {
-          // Обычный случайный символ
-          elements.push(
-            <span className="symbol" key={`symbol-${i}-${Math.random()}`}>
-              {generateRandomSymbol()}
-            </span>,
-          );
-        }
+      const reservedSlots = (wordText?.length || 0) + (comboText?.length || 0);
+      const symbolCount = Math.max(count - reservedSlots, 0);
+
+      const elements = Array.from({ length: symbolCount }, (_, index) => (
+        <span className="symbol" key={`symbol-${index}-${Math.random()}`}>
+          {generateRandomSymbol()}
+        </span>
+      ));
+
+      if (wordText) {
+        const insertIndex = Math.floor(Math.random() * (elements.length + 1));
+        elements.splice(
+          insertIndex,
+          0,
+          <span className="word" key={`word-${Math.random()}`}>
+            {wordText}
+          </span>,
+        );
+      }
+
+      if (comboText) {
+        const insertIndex = Math.floor(Math.random() * (elements.length + 1));
+        elements.splice(
+          insertIndex,
+          0,
+          <span className="Kombo" key={`combo-${Math.random()}`}>
+            {comboText}
+          </span>,
+        );
       }
 
       return elements;
@@ -128,24 +133,6 @@ const TerminalLines = () => {
       } while (usedWords.includes(word)); // Повторять, пока слово уже использовано
       usedWords.push(word); // Добавляем слово в список использованных
       return word;
-    };
-
-    // Функция для подсчета длины элементов
-    const getComboLength = (combo) => {
-      return combo.length; // Считаем длину комбо
-    };
-
-    // Функция для подсчета длины строки
-    const getLengthOfString = (elements) => {
-      let length = 0;
-      elements.forEach((el) => {
-        if (el.props.children && el.props.children.length) {
-          length += el.props.children.length; // Если это слово, то учитываем длину каждого символа
-        } else if (el.props.className === "Kombo") {
-          length += getComboLength(el.props.children); // Если это комбо, учитываем длину
-        }
-      });
-      return length;
     };
 
     const generateLine = (lineIndex) => {
@@ -163,24 +150,12 @@ const TerminalLines = () => {
         isWordLine,
       );
 
-      // Проверка, чтобы общая длина не превышала лимит строки
-      let totalLengthBeforeWord = getLengthOfString(elementsBeforeWord);
-      while (totalLengthBeforeWord > charsPerBlock) {
-        elementsBeforeWord.pop(); // Обрезаем, если длина превышает 12
-        totalLengthBeforeWord = getLengthOfString(elementsBeforeWord);
-      }
-
       // Добавляем второй блок после второго HEX
       let elementsAfterSecondHex = generateRandomElements(
         charsPerBlock,
         isComboLine,
         isWordLine,
       );
-      let totalLengthAfter = getLengthOfString(elementsAfterSecondHex);
-      while (totalLengthAfter > charsPerBlock) {
-        elementsAfterSecondHex.pop(); // Обрезаем, если длина превышает 12
-        totalLengthAfter = getLengthOfString(elementsAfterSecondHex);
-      }
 
       return (
         <div className="line" key={`line-${lineIndex}`}>
